@@ -13,7 +13,7 @@ app.use(express.json());
 // CORS – ajustá origins a los de tu portfolio
 app.use(
   cors({
-    origin: ["https://www.francocuencadev.com/"
+    origin: ["https://portfoliomats.vercel.app/"
     ],
   })
 );
