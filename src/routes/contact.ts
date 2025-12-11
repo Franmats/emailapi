@@ -1,6 +1,6 @@
 // src/routes/contact.ts
 import { Router } from "express";
-import { sendContactEmail } from "../email/sendContactEmail.ts";
+import { sendContactEmail } from "../email/sendContactEmail";
 
 const router = Router();
 

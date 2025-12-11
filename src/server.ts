@@ -1,10 +1,11 @@
 // src/server.ts
 import "dotenv/config";
+
 import express from "express";
 import cors from "cors";
-import contactRouter from "./routes/contact.ts";
+import contactRouter from "./routes/contact";
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(express.json());

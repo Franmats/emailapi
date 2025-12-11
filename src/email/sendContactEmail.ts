@@ -1,5 +1,5 @@
 // src/email/sendContactEmail.ts
-import { createTransporter } from "./transporter.ts";
+import { createTransporter } from "./transporter";
 
 interface ContactPayload {
   name?: string;
