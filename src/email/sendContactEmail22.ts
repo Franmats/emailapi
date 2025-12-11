@@ -1,5 +1,5 @@
 // src/email/sendContactEmail.ts
-import { Resend } from "resend";
+import { createTransporter } from "./transporter";
 
 interface ContactPayload {
   name?: string;
@@ -8,17 +8,10 @@ interface ContactPayload {
   message: string;
 }
 
-// Cliente de Resend con la API key desde .env
-const resend = new Resend(process.env.RESEND_API_KEY || "");
-
 export const sendContactEmail = async (data: ContactPayload) => {
-  const to = process.env.CONTACT_TO_EMAIL;
-  const from =
-    process.env.CONTACT_FROM_EMAIL || "Franco Portfolio <onboarding@resend.dev>";
+  const transporter = createTransporter();
 
-  if (!process.env.RESEND_API_KEY) {
-    throw new Error("Falta RESEND_API_KEY en el .env");
-  }
+  const to = process.env.CONTACT_TO_EMAIL;
   if (!to) {
     throw new Error("Falta CONTACT_TO_EMAIL en el .env");
   }
@@ -36,16 +29,12 @@ Mensaje:
 ${data.message}
 `.trim();
 
-  const { error } = await resend.emails.send({
-    from,
+  await transporter.sendMail({
+    from:
+      process.env.SMTP_FROM || `"Portfolio Web" <${process.env.SMTP_USER}>`,
     to,
+    replyTo: data.email, // si respondés, responde al usuario
     subject,
     text,
-    replyTo: data.email,
   });
-
-  if (error) {
-    console.error("Error al enviar email con Resend:", error);
-    throw new Error("Error enviando email");
-  }
 };

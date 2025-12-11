@@ -13,8 +13,9 @@ app.use(express.json());
 // CORS – ajustá origins a los de tu portfolio
 app.use(
   cors({
-    origin: ["https://portfoliomats.vercel.app/"
-    ],
+    origin: "*",          // ⬅⬅⬅ permitir TODOS los orígenes
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
